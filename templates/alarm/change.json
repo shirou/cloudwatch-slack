@@ -1,0 +1,40 @@
+{
+	"attachments": [
+		{
+			"color": "{{.Color}}",
+			"blocks": [
+				{
+					"type": "section",
+					"text": {
+						"type": "mrkdwn",
+						"text": "*CloudWatch alarm*: {{.AlarmName}} -> {{.State.Value}}"
+					}
+				},
+				{
+					"type": "divider"
+				},
+				{
+					"type": "section",
+					"text": {
+            "type": "mrkdwn",
+						"text": "*Description*: {{ .Configuration.Description }}"
+					}
+				},
+				{
+					"type": "section",
+					"text": {
+            "type": "mrkdwn",
+							"text": "*Trigger*: {{ range .Configuration.Metrics }}{{- .MetricStat.Metric.Namespace}} {{.MetricStat.Metric.Name}}{{ end }}"
+					}
+				},
+				{
+					"type": "section",
+					"text": {
+							"type": "mrkdwn",
+							"text": "*Reason*: {{ .State.Reason }}"
+					}
+				}
+			]
+		}
+	]
+}

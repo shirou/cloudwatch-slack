@@ -1,0 +1,67 @@
+{
+    "version": "0",
+    "id": "2dde0eb1-528b-d2d5-9ca6-6d590caf2329",
+    "detail-type": "CloudWatch Alarm State Change",
+    "source": "aws.cloudwatch",
+    "account": "123456789012",
+    "time": "2019-10-02T17:20:48Z",
+    "region": "us-east-1",
+    "resources": [
+        "arn:aws:cloudwatch:us-east-1:123456789012:alarm:TotalNetworkTrafficTooHigh"
+    ],
+    "detail": {
+        "alarmName": "TotalNetworkTrafficTooHigh",
+        "configuration": {
+            "description": "Goes into alarm if total network traffic exceeds 10Kb",
+            "metrics": [
+                {
+                    "expression": "SUM(METRICS())",
+                    "id": "e1",
+                    "label": "Total Network Traffic",
+                    "returnData": true
+                },
+                {
+                    "id": "m1",
+                    "metricStat": {
+                        "metric": {
+                            "dimensions": {
+                                "InstanceId": "i-12345678901234567"
+                            },
+                            "name": "NetworkIn",
+                            "namespace": "AWS/EC2"
+                        },
+                        "period": 300,
+                        "stat": "Maximum"
+                    },
+                    "returnData": false
+                },
+                {
+                    "id": "m2",
+                    "metricStat": {
+                        "metric": {
+                            "dimensions": {
+                                "InstanceId": "i-12345678901234567"
+                            },
+                            "name": "NetworkOut",
+                            "namespace": "AWS/EC2"
+                        },
+                        "period": 300,
+                        "stat": "Maximum"
+                    },
+                    "returnData": false
+                }
+            ]
+        },
+        "previousState": {
+            "reason": "Unchecked: Initial alarm creation",
+            "timestamp": "2019-10-02T17:20:03.642+0000",
+            "value": "INSUFFICIENT_DATA"
+        },
+        "state": {
+            "reason": "Threshold Crossed: 1 out of the last 1 datapoints [45628.0 (02/10/19 17:10:00)] was greater than the threshold (10000.0) (minimum 1 datapoint for OK -> ALARM transition).",
+            "reasonData": "{\"version\":\"1.0\",\"queryDate\":\"2019-10-02T17:20:48.551+0000\",\"startDate\":\"2019-10-02T17:10:00.000+0000\",\"period\":300,\"recentDatapoints\":[45628.0],\"threshold\":10000.0}",
+            "timestamp": "2019-10-02T17:20:48.554+0000",
+            "value": "ALARM"
+        }
+    }
+}
