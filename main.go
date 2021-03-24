@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -9,7 +10,9 @@ import (
 )
 
 func LambdaHandler(context context.Context, event events.CloudWatchEvent) (int, error) {
-	fmt.Printf("Detail = %s\n", event.Detail)
+	//	fmt.Printf("Detail = %s\n", event.Detail)
+	j, _ := json.MarshalIndent(event, "", "  ")
+	fmt.Printf("Source = %s\n", string(j))
 
 	msgBody, err := GenerateMessage(event.Source, event.DetailType, event.Detail)
 	if err != nil {
