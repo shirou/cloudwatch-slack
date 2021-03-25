@@ -15,6 +15,10 @@ This package is an AWS Lambda function compatible tool which can send CloudWatch
 
 You can specify a Slack webhook URL to `SLACK_WEBHOOK_URL`, like `https://hooks.slack.com/services/A00000/B0000000/dddddddd`. And if set `ssm:foo_bar`, starts with `ssm:`, get webhook url from AWS Parameter store with key(this example get from `foo_bar`).
 
+- SLACK_TEMPLATE_DIR (default: <binary_path>/templates/)
+
+You can specify message template directory by this environment variable.
+
 
 
 ## Limitations

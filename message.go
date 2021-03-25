@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
 	"text/template"
 )
@@ -41,12 +43,20 @@ func NewEvent(source, detailType string, detail json.RawMessage) (Event, error) 
 }
 
 func readTemplate(paths ...string) (*template.Template, error) {
-	// root := filepath.Dir(os.Args[0])
+	dir := os.Getenv(EnvKeyTemplateDir)
+	path := make([]string, 0, 10)
 
-	path := []string{"templates"}
+	// if SLACK_TEMPLATE_DIR is not set, use templates dir under the binary
+	if dir == "" {
+		root := filepath.Dir(os.Args[0])
+		path = []string{root, "templates"}
+	} else {
+		path = []string{dir}
+	}
 	for _, p := range paths {
 		path = append(path, p)
 	}
+
 	p := strings.Join(path, "/")
 	return template.ParseFiles(p)
 }
