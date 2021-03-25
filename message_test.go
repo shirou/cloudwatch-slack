@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"testing"
+
+	"github.com/aws/aws-lambda-go/events"
 )
 
 func TestGenerateMessage(t *testing.T) {
@@ -21,7 +23,7 @@ func TestGenerateMessage(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var event CloudwatchEvent
+		var event events.CloudWatchEvent
 		if err := json.Unmarshal(jsonFromFile, &event); err != nil {
 			t.Fatal(err)
 		}

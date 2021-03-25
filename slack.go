@@ -16,19 +16,11 @@ type SlackClient struct {
 	TimeOut    time.Duration
 }
 
-func NewSlackClient(username string) (SlackClient, error) {
-	/*
-		ss, err := NewParameterStore()
-		if err != nil {
-			return SlackClient{}, fmt.Errorf("NewParameterStore, %w", err)
-		}
-		webHookUrl, err := ss.get("webhook")
-		if err != nil {
-			return SlackClient{}, fmt.Errorf("get webhook url, %w", err)
-		}
-	*/
-	ss, _ := NewEnvStore()
-	webHookUrl, _ := ss.get("webhook")
+func NewSlackClient(username string, adapter SecretAdapter) (SlackClient, error) {
+	webHookUrl, err := adapter.get(EnvKeyWebhookURL)
+	if err != nil {
+		return SlackClient{}, fmt.Errorf("can not get webHookUrl, %w", err)
+	}
 
 	return SlackClient{
 		WebHookUrl: webHookUrl,

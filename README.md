@@ -4,17 +4,23 @@ This package is an AWS Lambda function compatible tool which can send CloudWatch
 
 ## requirement
 
-- Events should be sent via SNS
+- Events should be sent via EventBridge, not from.
 - Run on AWS Lambda
 
 ## Variables
 
-### Environment Variables
+### Environment Variable
 
-- SLACK_NAME (default: "alert")
+- SLACK_WEBHOOK_URL
 
-These variables should be stored in System Manager Parameter store
+You can specify a Slack webhook URL to `SLACK_WEBHOOK_URL`, like `https://hooks.slack.com/services/A00000/B0000000/dddddddd`. And if set `ssm:foo_bar`, starts with `ssm:`, get webhook url from AWS Parameter store with key(this example get from `foo_bar`).
 
-- SlackWebhook URL
+
+
+## Limitations
 
 Note: This can not set channel name, because Slack Incoming-Webhook by App should set one channel per webhook.
+
+## License
+
+Apache 2

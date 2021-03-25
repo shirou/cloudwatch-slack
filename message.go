@@ -3,11 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
-	"path/filepath"
 	"strings"
 	"text/template"
-	"time"
 )
 
 const (
@@ -15,18 +12,6 @@ const (
 	ColorWarn   = "#DAA038"
 	ColorDanger = "#A30100"
 )
-
-type CloudwatchEvent struct {
-	Version    string          `json:"version"`
-	ID         string          `json:"id"`
-	DetailType string          `json:"detail-type"`
-	Source     string          `json:"source"`
-	Account    string          `json:"account"`
-	Time       time.Time       `json:"time"`
-	Region     string          `json:"region"`
-	Resources  []string        `json:"resources"`
-	Detail     json.RawMessage `json:"detail"`
-}
 
 type Event interface {
 	readTemplate() (*template.Template, error)
@@ -56,9 +41,9 @@ func NewEvent(source, detailType string, detail json.RawMessage) (Event, error) 
 }
 
 func readTemplate(paths ...string) (*template.Template, error) {
-	root := filepath.Dir(os.Args[0])
+	// root := filepath.Dir(os.Args[0])
 
-	path := []string{root, "templates"}
+	path := []string{"templates"}
 	for _, p := range paths {
 		path = append(path, p)
 	}
